@@ -50,7 +50,7 @@ export default function RootLayout({
             <footer className="bg-background text-muted-foreground py-4 pb-20 text-center">
               <p>
                 Made with ❤️ by{" "}
-                <Link href="asdasdasd" className="text-primary">
+                <Link href="/" className="text-primary">
                   James Lin
                 </Link>
               </p>

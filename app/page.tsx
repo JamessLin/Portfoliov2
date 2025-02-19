@@ -16,6 +16,7 @@ export default function Home() {
   const [isFlipped, setIsFlipped] = useState(false);
   return (
     <main className="min-h-screen bg-background">
+      
       <div className="container mx-auto px-4 py-16 max-w-4xl">
         {/* Hero Section */}
         <div className="flex flex-col-reverse md:flex-row items-center justify-between mb-16 gap-8">
@@ -26,20 +27,9 @@ export default function Home() {
             <p className="text-lg mb-6">
               a CS student at Union College, excited about how AI and tech will shape our future.
             </p>
-            <div className="flex gap-2">
-              <Button variant="solid" className="flex items-center">
-                <Link href="mailto:your.email@example.com" className="flex items-center">
-                  <Mail className="mr-2 h-4 w-4" />
-                  Contact
-                </Link>
-              </Button>
-              <Button variant="solid" className="flex items-center">
-                <Link href="/resume.pdf" className="flex items-center">
-                  <FileText className="mr-2 h-4 w-4" />
-                  Resume
-                </Link>
-              </Button>
-            </div>
+       
+              <Snippet color="primary">linj3@union.edu</Snippet>
+        
           </div>
 
           <div 
@@ -76,7 +66,7 @@ export default function Home() {
                   transform: "rotateY(180deg)",
                 }}
               >
-                <Avatar src="/me.jpg" className="w-full h-full" />
+                <Avatar src="/Me.jpg" className="w-full h-full" />
               </div>
             </motion.div>
           </div>

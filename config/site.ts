@@ -10,7 +10,7 @@ export const siteConfig = {
     },
     {
       label: "Projects",
-      href: "#projects",
+      href: "/#projects",
     },
     {
       label: "Blog",
@@ -25,7 +25,7 @@ export const siteConfig = {
     },
     {
       label: "Projects",
-      href: "/projects",
+      href: "/#projects",
     },
     {
       label: "Blog",
@@ -38,7 +38,6 @@ export const siteConfig = {
     docs: "https://heroui.com",
     email: "mailto:linj3@union.edu",
     discord: "https://discord.gg/9b6yyZKmH4",
-    linkedin: 'https://linkedin.com/in/username',
-    sponsor: "https://patreon.com/jrgarciadev",
+    linkedin: 'https://www.linkedin.com/in/jameslinurl/',
   },
 };
