@@ -23,7 +23,7 @@ export default function Home() {
           
           <div className="flex-1">
             <Chip color="primary" variant="flat" className="mb-4">
-              <span className="inline-flex items-center gap-2 p-1">    <FaLocationDot />Schenectady, New York</span>
+              <span className="inline-flex items-center gap-1 p-1">    <FaLocationDot />Schenectady, New York</span>
             </Chip>
 
 
