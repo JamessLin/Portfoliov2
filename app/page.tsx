@@ -1,6 +1,6 @@
 "use client";
 
-import { Badge, Card, Button, Snippet } from "@heroui/react";
+import { Badge, Card, Button, Snippet, Chip } from "@heroui/react";
 import { Avatar, AvatarGroup, AvatarIcon } from "@heroui/avatar";
 import { Github, Linkedin, Mail, FileText, Globe } from "lucide-react";
 import Link from "next/link";
@@ -8,10 +8,10 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { aboutConfig } from "@/config/about";
 import { GithubIcon } from "@/components/icons";
+import { FaLocationDot } from "react-icons/fa6";
 
 
-
-
+// TODO: Use Chip from HeroUI for other things, didnt know it existed
 export default function Home() {
   const [isFlipped, setIsFlipped] = useState(false);
   return (
@@ -20,7 +20,14 @@ export default function Home() {
       <div className="container mx-auto px-4 py-16 max-w-4xl">
         {/* Hero Section */}
         <div className="flex flex-col-reverse md:flex-row items-center justify-between mb-16 gap-8">
+          
           <div className="flex-1">
+            <Chip color="primary" variant="flat" className="mb-4">
+              <span className="inline-flex items-center gap-2 p-1">    <FaLocationDot />Schenectady, New York</span>
+            </Chip>
+
+
+           
             <h1 className="text-4xl md:text-6xl font-bold mb-4">
               hi, I&apos;m <span className="text-primary">James Lin</span>
             </h1>
@@ -178,11 +185,11 @@ export default function Home() {
 
       <section id="projects" className="mb-16">
         <div className="text-center mb-10">
-          <span className="inline-block rounded-full px-4 py-1 text-sm font-medium bg-primary text-primary-foreground">
-            My Projects
-          </span>
-          <h2 className="text-primary text-4xl md:text-5xl font-bold mt-4">
-            Check out my latest work
+            <Chip color="primary" variant="flat" >
+              <span className="inline-flex items-center gap-2 p-1">My Project</span>
+            </Chip>
+          <h2 className="text-vprimary text-4xl md:text-5xl font-bold mt-4">
+            check out my latest work
           </h2>
           <p className="text-muted-foreground mt-2">
             I&apos;ve worked on a variety of projects. Here are a few of my favorites.
@@ -220,7 +227,7 @@ export default function Home() {
                       hideCopyButton
                       key={tech}
                       color="default"
-                      className="text-xs text-primary bg-secondary bg-opacity-10 px-2 py-1 rounded-md"
+                      className="text-xs text-vprimary bg-secondary bg-opacity-10 px-2 py-1 rounded-md"
                     >
                       {tech}
                     </Snippet>
@@ -233,7 +240,7 @@ export default function Home() {
                   href={project.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="bg-primary text-secondary flex items-center px-2 py-1 text-xs rounded-md hover:bg-gray-800 transition-colors"
+                  className="bg-vprimary text-secondary flex items-center px-2 py-1 text-xs rounded-md transition-colors"
                 >
                   <GithubIcon className="mr-1" /> Source Code
                 </a>
@@ -242,7 +249,7 @@ export default function Home() {
                     href={project.website}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="bg-black text-white flex items-center px-2 py-1 text-xs rounded-md hover:bg-gray-800 transition-colors"
+                    className="bg-secondary text-white flex items-center px-2 py-1 text-xs rounded-md transition-colors"
                   >
                     <Globe className="mr-1" /> Website
                   </a>

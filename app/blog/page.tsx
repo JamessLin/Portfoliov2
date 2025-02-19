@@ -35,7 +35,7 @@ export default function BlogPage() {
         <span className="inline-block rounded-full px-4 py-1 text-sm font-medium bg-primary text-primary-foreground">
           My Blog
         </span>
-        <h2 className="text-primary text-4xl md:text-5xl font-bold mt-4">
+        <h2 className="text-vprimary text-4xl md:text-5xl font-bold mt-4">
           Latest Articles
         </h2>
         <p className="text-muted-foreground mt-2">
