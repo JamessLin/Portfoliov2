@@ -22,8 +22,8 @@ export default function Home() {
         <div className="flex flex-col-reverse md:flex-row items-center justify-between mb-16 gap-8">
           
           <div className="flex-1">
-            <Chip color="primary" variant="flat" className="mb-4">
-              <span className="inline-flex items-center gap-1 p-1">    <FaLocationDot />Schenectady, New York</span>
+            <Chip  color="primary" startContent={<FaLocationDot/>} variant="flat" className="mb-4">
+              Schenectady, New York
             </Chip>
 
 
