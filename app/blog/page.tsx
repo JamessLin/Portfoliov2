@@ -42,7 +42,7 @@ export default function BlogPage() {
           Read my latest thoughts, tutorials, and case studies.
         </p>
       </div>
-"
+
       {/* <div className="grid md:grid-cols-2 gap-6">
         {blogPosts.map((post) => (
           <Card key={post.title} className="overflow-hidden group flex flex-col">
