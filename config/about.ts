@@ -10,20 +10,23 @@ export const aboutConfig = {
         {
             title: "CS Research Assistant",
             company: "Union College",
-            date: "Nov. 2024 -  Present",
-            icon: "/union.jpg"
+            date: "Nov 2024 -  Present",
+            icon: "/union.jpg",
+            location: "Schenectady, NY",
         },
         {
             title: "Technical Intern",
             company: "Aivres Systems",
-            date: "Jun. 2024 - Aug. 2024",
-            icon: "/aivres.jpg"
+            date: "Jun 2024 - Aug 2024",
+            icon: "/aivres.jpg",
+            location: "San Francisco Bay Area, CA",
         },
         {
             title: "Software Engineering Intern",
             company: "Bank of Saipan",
-            date: "May 2023 - Aug. 2024",
-            icon: "/bos.png"
+            date: "May 2023 - Aug 2024",
+            icon: "/bos.png",
+            location: "Saipan, MP",
         },
     ],
     
@@ -31,13 +34,13 @@ export const aboutConfig = {
         {
             title: "Bachelor of Science in Computer Science",
             school: "Union College",
-            date: "Sep. 2024 - June 2028",
+            date: "Sep 2024 - Jun 2028",
             icon:"/union.jpg"
         },
         {
             title: "High School Diploma",
             school: "Marianas High School",
-            date: "Aug. 2020 - May 2024",
+            date: "Aug 2020 - May 2024",
             icon:"/mhs.png"
         }
     ],

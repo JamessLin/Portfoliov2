@@ -94,40 +94,40 @@ export default function Home() {
 
         {/* Work Experience Section */}
         <section className="mb-16">
-        <h2 className="text-2xl font-bold mb-4">Work Experience</h2>
+          <h2 className="text-2xl font-bold mb-4">Work Experience</h2>
 
           {aboutConfig.workExperiences.map((experience) => (
-            <div key = {experience.date} className="justify-between mb-4">
-              <div key={experience.date} className="flex items-center gap-2">
+            <div key={experience.date} className="mb-4">
+              <div className="flex items-center gap-2">
                 {/* Icon Circle Container */}
                 <div className="relative flex shrink-0 overflow-hidden rounded-full border size-12 bg-muted-background dark:bg-foreground">
-                  {experience.icon && 
+                  {experience.icon && (
                     <img
-                      src={experience.icon}
+                      src={experience.icon || "/placeholder.svg"}
                       alt={experience.company}
                       className="aspect-square h-full w-full object-contain"
                     />
-                  }
+                  )}
                 </div>
 
                 {/* Content */}
-                <div className="flex-1 ">
+                <div className="flex-1">
                   <div className="flex justify-between items-start">
-                    <h3 className="text-lg font-semibold">{experience.company}</h3>
-                    <span className="text-md text-muted-foreground">
-                      {experience.date}
-                    </span>
+                    <div>
+                      <h3 className="text-lg font-semibold leading-tight">{experience.company}</h3>
+                      <p className="text-sm text-muted-foreground leading-tight">{experience.title}</p>
+                    </div>
+
+                    <div className="text-right">
+                      <span className="text-sm text-muted-foreground block">{experience.date}</span>
+                      <span className="text-sm text-muted-foreground block">{experience.location}</span>
+                    </div>
                   </div>
-                  <p className="text-sm text-muted-foreground">
-                    {experience.title}
-                  </p>
                 </div>
               </div>
             </div>
           ))}
-  
         </section>
-
         
         {/* Education Section */}
         <section className="mb-16">
@@ -150,14 +150,14 @@ export default function Home() {
                 {/* Content */}
                 <div className="flex-1 ">
                   <div className="flex justify-between items-start">
-                    <h3 className="text-lg font-semibold">{school.school}</h3>
-                    <span className="text-md text-muted-foreground">
+                    <div>
+                      <h3 className="text-lg font-semibold leading-tight">{school.school}</h3>
+                      <p className="text-sm text-muted-foreground leading-tight">{school.title}</p>
+                    </div>
+                    <span className="text-sm text-muted-foreground">
                       {school.date}
                     </span>
                   </div>
-                  <p className="text-sm text-muted-foreground">
-                    {school.title}
-                  </p>
                 </div>
               </div>
             </div>
