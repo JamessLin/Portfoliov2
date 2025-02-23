@@ -7,21 +7,28 @@ import { BlogPost } from "@/types";
 export async function generateStaticParams() {
   const postsDirectory = path.join(process.cwd(), "posts");
   const filenames = fs.readdirSync(postsDirectory);
-  return filenames.map((filename) => ({
-    slug: filename.replace(/\.md$/, ""),
-  }));
+  return filenames
+    .filter((filename) => filename.endsWith(".md"))  
+    .map((filename) => ({
+      slug: filename.replace(/\.md$/, ""),
+    }));
 }
-
-interface PostPageProps {
-  params: { slug: string };
-  searchParams: URLSearchParams;
-}
-
 export default async function PostPage({
-  params: { slug },
-}: PostPageProps): Promise<JSX.Element> {
+  params,
+  searchParams,
+}: {
+  params: { slug: string };
+  searchParams: { [key: string]: string | string[] | undefined };
+}): Promise<JSX.Element> {
+  const { slug } = await params;
+
   const postsDirectory = path.join(process.cwd(), "posts");
-  const fullPath = path.join(postsDirectory, `${slug}.md`);
+  const fullPath = path.join(postsDirectory, `${slug}.md`);  // Append .md here
+
+  if (!fs.existsSync(fullPath)) {
+    throw new Error(`Post not found for slug: ${slug}`);
+  }
+
   const fileContents = fs.readFileSync(fullPath, "utf8");
   const { data, content } = matter(fileContents);
 
