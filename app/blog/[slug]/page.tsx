@@ -9,13 +9,14 @@ interface PostPageParams {
   slug: string;
 }
 
-export async function generateStaticParams() {
+export async function generateStaticParams(): Promise<{ slug: string }[]> {
   const postsDirectory = path.join(process.cwd(), "posts");
   const filenames = fs.readdirSync(postsDirectory);
   return filenames.map((filename) => ({
     slug: filename.replace(/\.md$/, ""),
   }));
 }
+
 
 export default async function PostPage({
   params,
