@@ -4,12 +4,7 @@ import matter from "gray-matter";
 import ReactMarkdown from "react-markdown";
 import { BlogPost } from "@/types";
 
-
-interface PostPageParams {
-  slug: string;
-}
-
-export async function generateStaticParams(): Promise<{ slug: string }[]> {
+export async function generateStaticParams() {
   const postsDirectory = path.join(process.cwd(), "posts");
   const filenames = fs.readdirSync(postsDirectory);
   return filenames.map((filename) => ({
@@ -17,12 +12,13 @@ export async function generateStaticParams(): Promise<{ slug: string }[]> {
   }));
 }
 
-
 export default async function PostPage({
   params,
+  searchParams,
 }: {
-  params: PostPageParams;
-}) {
+  params: { slug: string };
+  searchParams: { [key: string]: string | string[] | undefined };
+}): Promise<JSX.Element> {
   const postsDirectory = path.join(process.cwd(), "posts");
   const fullPath = path.join(postsDirectory, `${params.slug}.md`);
   const fileContents = fs.readFileSync(fullPath, "utf8");

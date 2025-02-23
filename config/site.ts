@@ -16,7 +16,6 @@ export const siteConfig = {
       label: "Blog",
       href: "/blog",
     },
-
   ],
   navMenuItems: [
     {
@@ -38,6 +37,6 @@ export const siteConfig = {
     docs: "https://heroui.com",
     email: "mailto:linj3@union.edu",
     discord: "https://discord.gg/9b6yyZKmH4",
-    linkedin: 'https://www.linkedin.com/in/jameslinurl/',
+    linkedin: "https://www.linkedin.com/in/jameslinurl/",
   },
 };

@@ -194,24 +194,23 @@ export const LinkedinFilledIcon: React.FC<IconSvgProps> = ({
 }) => {
   return (
     <svg
-      width={size || width}
+      fill="none"
       height={size || height}
       viewBox="0 0 24 24"
-      fill="none"
+      width={size || width}
       {...props}
     >
       <path
-        fill="currentColor"
         d="M19 0H5C2.238 0 0 2.238 0 5v14c0 2.762 2.238 5 5 5h14c2.762
            0 5-2.238 5-5V5c0-2.762-2.238-5-5-5ZM8.339 18.339H5.664V9.163h2.675v9.176ZM7.001
            7.862a1.549 1.549 0 1 1 0-3.098 1.549 1.549 0 0 1 0 3.098Zm11.338 10.477h-2.675v-4.337c0-1.034-.02-2.367-1.443-2.367-1.443
            0-1.664 1.127-1.664 2.293v4.411H9.883V9.163h2.57v1.249h.035c.358-.676 1.233-1.39
            2.537-1.39 2.715 0 3.217 1.787 3.217 4.111v5.206Z"
+        fill="currentColor"
       />
     </svg>
   );
 };
-
 
 export const EmailIcon: React.FC<IconSvgProps> = ({
   size = 24,
@@ -225,16 +224,16 @@ export const EmailIcon: React.FC<IconSvgProps> = ({
     focusable="false"
     height={size || height}
     role="presentation"
-    viewBox="0 0 24 24"
-    width={size || width}
     stroke="currentColor"
-    strokeWidth="2"
     strokeLinecap="round"
     strokeLinejoin="round"
+    strokeWidth="2"
+    viewBox="0 0 24 24"
+    width={size || width}
     {...props}
   >
     {/* Envelope shape */}
-    <rect x="2" y="4" width="20" height="16" rx="2" ry="2" />
+    <rect height="16" rx="2" ry="2" width="20" x="2" y="4" />
     {/* Envelope flap */}
     <polyline points="22,6 12,13 2,6" />
   </svg>

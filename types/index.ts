@@ -4,7 +4,6 @@ export type IconSvgProps = SVGProps<SVGSVGElement> & {
   size?: number;
 };
 
-
 // types.ts
 export interface BlogPost {
   title: string;

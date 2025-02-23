@@ -3,8 +3,7 @@
 // import React from "react";
 // import Link from "next/link";
 // import { FaArrowRight } from "react-icons/fa";
-// import { Card , Snippet} from "@heroui/react"; 
-
+// import { Card , Snippet} from "@heroui/react";
 
 // const blogPosts = [
 //   {
@@ -12,7 +11,7 @@
 //     date: "",
 //     summary:
 //       "",
-//     image: "", 
+//     image: "",
 //     tags: ["", "", ""],
 //     link: "",
 //   },
@@ -21,7 +20,7 @@
 //     date: "",
 //     summary:
 //       "",
-//     image: "", 
+//     image: "",
 //     tags: ["", "", ""],
 //     link: "",
 //   },
@@ -94,14 +93,12 @@
 //   );
 // }
 
+import BlogList from "./Bloglist";
 
 import { getPosts } from "@/lib/posts";
-import BlogList from "./Bloglist"; 
 
 export default async function BlogPage() {
-
   const posts = await getPosts();
 
   return <BlogList posts={posts} />;
 }
-

@@ -4,8 +4,9 @@ import React, { createContext } from "react";
 import Link from "next/link";
 import { FaArrowRight } from "react-icons/fa";
 import { Card } from "@heroui/react";
-import { BlogPost } from "@/types";
 import { Chip } from "@heroui/react";
+
+import { BlogPost } from "@/types";
 export const BlogContext = createContext<BlogPost[]>([]);
 
 interface BlogListProps {
@@ -15,11 +16,11 @@ interface BlogListProps {
 export default function BlogList({ posts }: BlogListProps) {
   return (
     <BlogContext.Provider value={posts}>
-      <section id="blog" className="mb-16">
+      <section className="mb-16" id="blog">
         <div className="text-center mb-10">
-        <Chip color="primary" variant="flat" >
+          <Chip color="primary" variant="flat">
             <span className="inline-flex items-center gap-2 p-1">My Blog</span>
-        </Chip>
+          </Chip>
           <h2 className="text-vprimary text-4xl md:text-5xl font-bold mt-4">
             Latest Articles
           </h2>
@@ -34,7 +35,10 @@ export default function BlogList({ posts }: BlogListProps) {
               <p className="mt-2">{post.date}</p>
               <Link href={`/blog/${post.slug}`}>
                 <div className="flex items-center mt-4">
-                  Read More <span className="ml-2"><FaArrowRight /></span>
+                  Read More{" "}
+                  <span className="ml-2">
+                    <FaArrowRight />
+                  </span>
                 </div>
               </Link>
             </Card>
