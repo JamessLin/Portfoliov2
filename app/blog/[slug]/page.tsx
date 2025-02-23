@@ -4,6 +4,11 @@ import matter from "gray-matter";
 import ReactMarkdown from "react-markdown";
 import { BlogPost } from "@/types";
 
+
+interface PostPageParams {
+  slug: string;
+}
+
 export async function generateStaticParams() {
   const postsDirectory = path.join(process.cwd(), "posts");
   const filenames = fs.readdirSync(postsDirectory);
@@ -15,7 +20,7 @@ export async function generateStaticParams() {
 export default async function PostPage({
   params,
 }: {
-  params: { slug: string };
+  params: PostPageParams;
 }) {
   const postsDirectory = path.join(process.cwd(), "posts");
   const fullPath = path.join(postsDirectory, `${params.slug}.md`);
