@@ -12,13 +12,14 @@ export async function generateStaticParams() {
   }));
 }
 
-export default async function PostPage(
-  props: { 
-    params: { slug: string }; 
-    searchParams: URLSearchParams 
-  }
-): Promise<JSX.Element> {
-  const { slug } = props.params;
+interface PostPageProps {
+  params: { slug: string };
+  searchParams: URLSearchParams;
+}
+
+export default async function PostPage({
+  params: { slug },
+}: PostPageProps): Promise<JSX.Element> {
   const postsDirectory = path.join(process.cwd(), "posts");
   const fullPath = path.join(postsDirectory, `${slug}.md`);
   const fileContents = fs.readFileSync(fullPath, "utf8");
