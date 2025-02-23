@@ -172,7 +172,7 @@ export default function Home() {
           <h2 className="text-2xl font-bold mb-4">Skills</h2>
           <div className="flex flex-wrap gap-2">
             {aboutConfig.skills.map((skill) => (
-              <Snippet hideSymbol hideCopyButton key={skill} color="default">
+              <Snippet className="rounded-md" hideSymbol hideCopyButton key={skill} color="default">
                 {skill}
               </Snippet>
             ))}
@@ -192,7 +192,7 @@ export default function Home() {
             check out my latest work
           </h2>
           <p className="text-muted-foreground mt-2">
-            I&apos;ve worked on a variety of projects. Here are a few of my favorites.
+            I&apos;ve worked on a variety of projects. Here are some of my favorite ongoing projects.
           </p>
         </div>
         <div className="grid md:grid-cols-2 gap-6">
@@ -200,11 +200,14 @@ export default function Home() {
             <Card key={project.title} className="overflow-hidden group flex flex-col">
             <a href={project.link} className="block">
               <div className="aspect-video relative overflow-hidden">
-                <img
-                  src={project.image}
-                  alt={project.title}
+              <video
+                  src={project.video} 
                   className="object-cover w-full h-full transform group-hover:scale-105 transition-transform duration-200"
-                />
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+              />
               </div>
             </a>
             <div className="p-6 flex flex-col flex-grow">
