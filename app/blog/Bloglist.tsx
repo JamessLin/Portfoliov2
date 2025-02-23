@@ -5,7 +5,7 @@ import Link from "next/link";
 import { FaArrowRight } from "react-icons/fa";
 import { Card } from "@heroui/react";
 import { BlogPost } from "@/types";
-
+import { Chip } from "@heroui/react";
 export const BlogContext = createContext<BlogPost[]>([]);
 
 interface BlogListProps {
@@ -17,9 +17,9 @@ export default function BlogList({ posts }: BlogListProps) {
     <BlogContext.Provider value={posts}>
       <section id="blog" className="mb-16">
         <div className="text-center mb-10">
-          <span className="inline-block rounded-full px-4 py-1 text-sm font-medium bg-primary text-primary-foreground">
-            My Blog
-          </span>
+        <Chip color="primary" variant="flat" >
+            <span className="inline-flex items-center gap-2 p-1">My Blog</span>
+        </Chip>
           <h2 className="text-vprimary text-4xl md:text-5xl font-bold mt-4">
             Latest Articles
           </h2>
