@@ -2,7 +2,7 @@ import "@/styles/globals.css";
 import { Metadata, Viewport } from "next";
 import { Link } from "@heroui/link";
 import clsx from "clsx";
-
+import { Analytics } from '@vercel/analytics/next';
 import { Providers } from "./providers";
 
 import { siteConfig } from "@/config/site";
@@ -57,6 +57,7 @@ export default function RootLayout({
             </footer>
           </div>
         </Providers>
+        <Analytics />
       </body>
     </html>
   );

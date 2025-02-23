@@ -12,15 +12,15 @@ export async function generateStaticParams() {
   }));
 }
 
-export default async function PostPage({
-  params,
-  searchParams,
-}: {
-  params: { slug: string };
-  searchParams: { [key: string]: string | string[] | undefined };
-}): Promise<JSX.Element> {
+export default async function PostPage(
+  props: { 
+    params: { slug: string }; 
+    searchParams: URLSearchParams 
+  }
+): Promise<JSX.Element> {
+  const { slug } = props.params;
   const postsDirectory = path.join(process.cwd(), "posts");
-  const fullPath = path.join(postsDirectory, `${params.slug}.md`);
+  const fullPath = path.join(postsDirectory, `${slug}.md`);
   const fileContents = fs.readFileSync(fullPath, "utf8");
   const { data, content } = matter(fileContents);
 
@@ -28,7 +28,7 @@ export default async function PostPage({
     title: data.title || "No Title",
     date: data.date || "No Date",
     summary: data.summary || "",
-    slug: params.slug,
+    slug,
   };
 
   return (
