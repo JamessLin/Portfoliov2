@@ -4,12 +4,6 @@ import matter from "gray-matter";
 import ReactMarkdown from "react-markdown";
 import { BlogPost } from "@/types";
 
-interface PostPageProps {
-  params: {
-    slug: string;
-  };
-}
-
 export async function generateStaticParams() {
   const postsDirectory = path.join(process.cwd(), "posts");
   const filenames = fs.readdirSync(postsDirectory);
@@ -18,18 +12,22 @@ export async function generateStaticParams() {
   }));
 }
 
-export default async function PostPage({ params: { slug } }: PostPageProps) {
+export default async function PostPage({
+  params,
+}: {
+  params: { slug: string };
+}) {
   const postsDirectory = path.join(process.cwd(), "posts");
-  const fullPath = path.join(postsDirectory, `${slug}.md`);
+  const fullPath = path.join(postsDirectory, `${params.slug}.md`);
   const fileContents = fs.readFileSync(fullPath, "utf8");
   const { data, content } = matter(fileContents);
+
   const post: BlogPost = {
-    title: data.title,
-    date: data.date,
-    summary: data.summary,
-    slug,
+    title: data.title || "No Title",
+    date: data.date || "No Date",
+    summary: data.summary || "",
+    slug: params.slug,
   };
-  
 
   return (
     <article className="max-w-3xl mx-auto my-10">
