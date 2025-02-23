@@ -1,51 +1,69 @@
-import fs from "fs";
-import path from "path";
-import matter from "gray-matter";
-import ReactMarkdown from "react-markdown";
-import { BlogPost } from "@/types";
+import fs from 'fs/promises';
+import path from 'path';
+import matter from 'gray-matter';
+import ReactMarkdown from 'react-markdown';
+import { notFound } from 'next/navigation';
+
+
+const MarkdownImage = (props: any) => {
+  let { src, alt, ...rest } = props;
+  if (src && !src.startsWith('/') && !src.startsWith('http')) {
+    src = '/' + src;
+  }
+  return <img src={src} alt={alt} {...rest} />;
+};
+
+const MarkdownVideo = (props: any) => {
+  let { src, ...rest } = props;
+  if (src && !src.startsWith('/') && !src.startsWith('http')) {
+    src = '/' + src;
+  }
+  return <video src={src} controls {...rest} />;
+};
 
 export async function generateStaticParams() {
-  const postsDirectory = path.join(process.cwd(), "posts");
-  const filenames = fs.readdirSync(postsDirectory);
-  return filenames
-    .filter((filename) => filename.endsWith(".md"))  
-    .map((filename) => ({
-      slug: filename.replace(/\.md$/, ""),
-    }));
+  const blogsDirectory = path.join(process.cwd(), 'content', 'blogs');
+  const filenames = await fs.readdir(blogsDirectory);
+  return filenames.map((filename) => ({
+    slug: filename.replace(/\.md$/, ''),
+  }));
 }
-export default async function PostPage({
-  params,
-  searchParams,
-}: {
-  params: { slug: string };
-  searchParams: { [key: string]: string | string[] | undefined };
-}): Promise<JSX.Element> {
+
+export const metadata = {
+  title: 'Blog Post',
+  description: 'A dynamic blog post page rendered from Markdown.',
+};
+
+interface BlogPageProps {
+  params: Promise<{ slug: string }>;
+}
+
+export default async function BlogPostPage({ params }: BlogPageProps) {
+ 
   const { slug } = await params;
+  const filePath = path.join(process.cwd(), 'content', 'blogs', `${slug}.md`);
 
-  const postsDirectory = path.join(process.cwd(), "posts");
-  const fullPath = path.join(postsDirectory, `${slug}.md`);  // Append .md here
+  try {
+    const fileContents = await fs.readFile(filePath, 'utf8');
+    const { data, content } = matter(fileContents);
 
-  if (!fs.existsSync(fullPath)) {
-    throw new Error(`Post not found for slug: ${slug}`);
+    return (
+      <article className="max-w-3xl mx-auto p-8">
+        <h1 className="text-4xl font-bold mb-4">{data.title}</h1>
+        <p className="text-gray-500 mb-8">
+          {new Date(data.date).toLocaleDateString()}
+        </p>
+        <ReactMarkdown
+          components={{
+            img: MarkdownImage,
+            video: MarkdownVideo,
+          }}
+        >
+          {content}
+        </ReactMarkdown>
+      </article>
+    );
+  } catch (error) {
+    notFound();
   }
-
-  const fileContents = fs.readFileSync(fullPath, "utf8");
-  const { data, content } = matter(fileContents);
-
-  const post: BlogPost = {
-    title: data.title || "No Title",
-    date: data.date || "No Date",
-    summary: data.summary || "",
-    slug,
-  };
-
-  return (
-    <article className="max-w-3xl mx-auto my-10">
-      <h1 className="text-4xl font-bold">{post.title}</h1>
-      <p className="text-sm text-muted-foreground">{post.date}</p>
-      <div className="mt-6">
-        <ReactMarkdown>{content}</ReactMarkdown>
-      </div>
-    </article>
-  );
 }

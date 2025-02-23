@@ -84,7 +84,7 @@ export const aboutConfig = {
         "Weiqi.com is an online Go platform (also known as Weiqi or Baduk) delivering a seamless experience for all skill levels, featuring real-time multiplayer, AI integration, and game analysis.",
       image:
         "https://images.unsplash.com/photo-1612444530582-fc66183b16f0?q=80&w=2787&auto=format&fit=crop",
-      video: "weiqi.mp4",
+      video: "/weiqi.mp4",
       technologies: [
         "TypeScript",
         "Java",
@@ -108,7 +108,7 @@ export const aboutConfig = {
       description:
         "empower individuals to achieve financial wellness through intelligent, personalized guidance. By leveraging AI-driven insights, the app simplifies complex financial decisions, automates budgeting, and proactively identifies opportunities to save, invest, and reduce debt—all while keeping the technology invisible and user-centric.",
       image: "BudgetAi.png",
-      video: "Budget.mp4",
+      video: "/Budget.mp4",
       technologies: [
         "Python",
         "Fast API",
