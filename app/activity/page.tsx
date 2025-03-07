@@ -1,45 +1,71 @@
 "use client"
 
 import { Card, Chip } from "@heroui/react"
-import {Timer, BarChart2, TrendingUp } from "lucide-react"
-import { FaTrophy } from "react-icons/fa";
-import { useState } from "react"
-import { FaRunning, FaFire, FaCode } from "react-icons/fa"
+import { Timer, TrendingUp } from "lucide-react"
+import { FaTrophy, FaRunning, FaCode } from "react-icons/fa"
+import { useState, useEffect } from "react"
 
-// Sample data - replace with your actual data
-const leetcodeData = {
-  totalSolved: 187,
-  easySolved: 72,
-  mediumSolved: 95,
-  hardSolved: 20,
-  streak: 14,
-  recentProblems: [
-    { id: 1, name: "Two Sum", difficulty: "Easy", date: "2023-03-01" },
-    { id: 2, name: "Add Two Numbers", difficulty: "Medium", date: "2023-03-02" },
-    { id: 3, name: "Longest Substring Without Repeating Characters", difficulty: "Medium", date: "2023-03-03" },
-    { id: 4, name: "Median of Two Sorted Arrays", difficulty: "Hard", date: "2023-03-04" },
-  ],
-  // This would be your heatmap data - simplified for example
-  heatmapData: Array.from({ length: 365 }, (_, i) => ({
-    date: new Date(2023, 0, i + 1).toISOString().split("T")[0],
-    count: Math.floor(Math.random() * 5),
-  })),
+interface LeetCodeProblem {
+  id: number
+  name: string
+  difficulty: string
+  date: string
 }
 
-const stravaData = {
-  totalRuns: 42,
-  totalDistance: 312.5,
-  totalTime: "42:15:30",
-  recentRuns: [
-    { id: 1, name: "Morning Run", distance: 5.2, time: "00:28:15", date: "2023-03-01", pace: "5:25" },
-    { id: 2, name: "Evening Jog", distance: 3.7, time: "00:22:40", date: "2023-02-28", pace: "6:07" },
-    { id: 3, name: "Weekend Long Run", distance: 12.4, time: "01:12:30", date: "2023-02-26", pace: "5:51" },
-    { id: 4, name: "Recovery Run", distance: 4.1, time: "00:25:10", date: "2023-02-24", pace: "6:08" },
-  ],
+interface LeetCodeData {
+  totalSolved: number
+  easySolved: number
+  mediumSolved: number
+  hardSolved: number
+  recentProblems: LeetCodeProblem[]
+}
+
+interface StravaRun {
+  id: number
+  name: string
+  distance: number | string
+  time: string
+  date: string
+  pace: string
+}
+
+interface StravaData {
+  totalRuns: number
+  totalDistance: number | string
+  totalTime: string
+  recentRuns: StravaRun[]
 }
 
 export default function Activity() {
-  const [activeTab, setActiveTab] = useState("leetcode")
+  const [activeTab, setActiveTab] = useState<"leetcode" | "strava">("leetcode")
+  const [leetcodeData, setLeetcodeData] = useState<LeetCodeData | null>(null)
+  const [stravaData, setStravaData] = useState<StravaData | null>(null)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        // Fetch both endpoints concurrently
+        const [leetcodeRes, stravaRes] = await Promise.all([
+          fetch("/api/leetcode"),
+          fetch("/api/strava"),
+        ])
+        const leetcodeJson = await leetcodeRes.json()
+        const stravaJson = await stravaRes.json()
+        setLeetcodeData(leetcodeJson)
+        setStravaData(stravaJson)
+      } catch (error) {
+        console.error("Error fetching data:", error)
+      } finally {
+        setLoading(false)
+      }
+    }
+    fetchData()
+  }, [])
+
+  if (loading || !leetcodeData || !stravaData) {
+    return <div>Loading...</div>
+  }
 
   return (
     <main className="min-h-screen bg-background">
@@ -54,8 +80,8 @@ export default function Activity() {
             my activity tracker
           </h1>
           <p className="text-muted-foreground">
-            tracking my coding challenges, running progress, and daily activities to stay motivated and improve
-            consistently.
+            tracking my coding challenges, running progress, and daily activities
+            to stay motivated and improve consistently.
           </p>
 
           {/* Tab Navigation */}
@@ -63,7 +89,9 @@ export default function Activity() {
             <button
               onClick={() => setActiveTab("leetcode")}
               className={`px-4 py-2 rounded-md flex items-center gap-2 ${
-                activeTab === "leetcode" ? "bg-primary text-primary-foreground" : "bg-muted"
+                activeTab === "leetcode"
+                  ? "bg-primary text-primary-foreground"
+                  : "bg-muted"
               }`}
             >
               <FaCode /> LeetCode
@@ -71,7 +99,9 @@ export default function Activity() {
             <button
               onClick={() => setActiveTab("strava")}
               className={`px-4 py-2 rounded-md flex items-center gap-2 ${
-                activeTab === "strava" ? "bg-primary text-primary-foreground" : "bg-muted"
+                activeTab === "strava"
+                  ? "bg-primary text-primary-foreground"
+                  : "bg-muted"
               }`}
             >
               <FaRunning /> Strava
@@ -89,15 +119,21 @@ export default function Activity() {
               <div className="p-4">
                 <div className="flex flex-col items-center">
                   <FaTrophy className="text-yellow-500 mt-3 mb-3" size={24} />
-                  <h3 className="text-lg font-semibold">{leetcodeData.totalSolved}</h3>
-                  <p className="text-sm text-muted-foreground">Problems Solved</p>
+                  <h3 className="text-lg font-semibold">
+                    {leetcodeData.totalSolved}
+                  </h3>
+                  <p className="text-sm text-muted-foreground">
+                    Problems Solved
+                  </p>
                 </div>
               </div>
 
               <div className="p-4">
                 <div className="flex flex-col items-center">
                   <div className="text-green-500 mb-2 text-2xl">●</div>
-                  <h3 className="text-lg font-semibold">{leetcodeData.easySolved}</h3>
+                  <h3 className="text-lg font-semibold">
+                    {leetcodeData.easySolved}
+                  </h3>
                   <p className="text-sm text-muted-foreground">Easy</p>
                 </div>
               </div>
@@ -105,7 +141,9 @@ export default function Activity() {
               <div className="p-4">
                 <div className="flex flex-col items-center">
                   <div className="text-yellow-500 mb-2 text-2xl">●</div>
-                  <h3 className="text-lg font-semibold">{leetcodeData.mediumSolved}</h3>
+                  <h3 className="text-lg font-semibold">
+                    {leetcodeData.mediumSolved}
+                  </h3>
                   <p className="text-sm text-muted-foreground">Medium</p>
                 </div>
               </div>
@@ -113,20 +151,25 @@ export default function Activity() {
               <div className="p-4">
                 <div className="flex flex-col items-center">
                   <div className="text-red-500 mb-2 text-2xl">●</div>
-                  <h3 className="text-lg font-semibold">{leetcodeData.hardSolved}</h3>
+                  <h3 className="text-lg font-semibold">
+                    {leetcodeData.hardSolved}
+                  </h3>
                   <p className="text-sm text-muted-foreground">Hard</p>
                 </div>
               </div>
             </div>
 
-   
-
             {/* Recent Problems */}
-            <Card shadow="none"  className="p-6">
-              <h3 className="text-xl font-semibold mb-4">Recently Solved Problems</h3>
+            <Card shadow="none" className="p-6">
+              <h3 className="text-xl font-semibold mb-4">
+                Recently Solved Problems
+              </h3>
               <div className="space-y-4">
                 {leetcodeData.recentProblems.map((problem) => (
-                  <div key={problem.id} className="flex items-center justify-between border-b pb-3">
+                  <div
+                    key={problem.id}
+                    className="flex items-center justify-between border-b pb-3"
+                  >
                     <div>
                       <h4 className="font-medium">{problem.name}</h4>
                       <div className="flex items-center gap-2 mt-1">
@@ -136,13 +179,15 @@ export default function Activity() {
                             problem.difficulty === "Easy"
                               ? "bg-green-100 text-green-800"
                               : problem.difficulty === "Medium"
-                                ? "bg-yellow-100 text-yellow-800"
-                                : "bg-red-100 text-red-800"
+                              ? "bg-yellow-100 text-yellow-800"
+                              : "bg-red-100 text-red-800"
                           }
                         >
                           {problem.difficulty}
                         </Chip>
-                        <span className="text-xs text-muted-foreground">{problem.date}</span>
+                        <span className="text-xs text-muted-foreground">
+                          {problem.date}
+                        </span>
                       </div>
                     </div>
                     <a href="#" className="text-primary text-sm hover:underline">
@@ -165,7 +210,9 @@ export default function Activity() {
               <Card shadow="none" className="border p-4">
                 <div className="flex flex-col items-center">
                   <FaRunning className="text-primary mb-2" size={24} />
-                  <h3 className="text-lg font-semibold">{stravaData.totalRuns}</h3>
+                  <h3 className="text-lg font-semibold">
+                    {stravaData.totalRuns}
+                  </h3>
                   <p className="text-sm text-muted-foreground">Total Runs</p>
                 </div>
               </Card>
@@ -173,7 +220,9 @@ export default function Activity() {
               <Card shadow="none" className="border p-4">
                 <div className="flex flex-col items-center">
                   <TrendingUp className="text-primary mb-2" size={24} />
-                  <h3 className="text-lg font-semibold">{stravaData.totalDistance} km</h3>
+                  <h3 className="text-lg font-semibold">
+                    {stravaData.totalDistance} km
+                  </h3>
                   <p className="text-sm text-muted-foreground">Total Distance</p>
                 </div>
               </Card>
@@ -181,7 +230,9 @@ export default function Activity() {
               <Card shadow="none" className="border p-4">
                 <div className="flex flex-col items-center">
                   <Timer className="text-primary mb-2" size={24} />
-                  <h3 className="text-lg font-semibold">{stravaData.totalTime}</h3>
+                  <h3 className="text-lg font-semibold">
+                    {stravaData.totalTime}
+                  </h3>
                   <p className="text-sm text-muted-foreground">Total Time</p>
                 </div>
               </Card>
@@ -220,7 +271,10 @@ export default function Activity() {
                         <path
                           d={`M0,30 ${Array.from(
                             { length: 20 },
-                            (_, i) => `L${i * 5},${20 - Math.sin(i * 0.5) * 10 - Math.random() * 5}`,
+                            (_, i) =>
+                              `L${i * 5},${20 -
+                                Math.sin(i * 0.5) * 10 -
+                                Math.random() * 5}`
                           ).join(" ")} L100,30 Z`}
                           fill="rgba(var(--primary), 0.2)"
                           stroke="rgb(var(--primary))"
@@ -258,8 +312,13 @@ export default function Activity() {
                       const height = 20 + Math.random() * 80
                       return (
                         <div key={i} className="w-12 flex flex-col items-center">
-                          <div className="w-8 bg-primary rounded-t-md" style={{ height: `${height}%` }}></div>
-                          <div className="text-xs mt-2 font-medium">{Math.floor(height / 2)} km</div>
+                          <div
+                            className="w-8 bg-primary rounded-t-md"
+                            style={{ height: `${height}%` }}
+                          ></div>
+                          <div className="text-xs mt-2 font-medium">
+                            {Math.floor(height / 2)} km
+                          </div>
                         </div>
                       )
                     })}
@@ -273,4 +332,3 @@ export default function Activity() {
     </main>
   )
 }
-
