@@ -63,7 +63,7 @@ export const aboutConfig = {
     {
       title: "Bachelor of Science in Computer Science",
       school: "Union College",
-      date: "Sep 2024 - Jun 2028",
+      date: "Sep 2024 - Jun 2027",
       icon: "/union.jpg",
       location: "Schenectady, NY",
     },
@@ -77,9 +77,22 @@ export const aboutConfig = {
   ],
 
   projects: [
+      {
+      title: "Peerfo",
+      date: "Apr 2025 - Present",
+      description:
+        "Peerfo.com is an AI-driven interview preparation platform featuring peer-to-peer mode with resume-based question recommendations, you-vs-AI with a simulated recruiter, and you-vs-friend with link sharing. It includes AI feedback and resume check tools.",
+      image: "",
+      video: "/peerfo.mkv",
+      technologies: [
+        "TypeScript", "SQL", "Express.js", "React", "Node.js", "Supabase", "Tailwind CSS", "Git"
+      ],
+      link: "https://github.com/JamessLin/peerfo",
+      website: "",
+    },
     {
       title: "Weiqi.com",
-      date: "Dec 2024 - Present",
+      date: "Dec 2024 - Mar 2025",
       description:
         "Weiqi.com is an online Go platform (also known as Weiqi or Baduk) delivering a seamless experience for all skill levels, featuring real-time multiplayer, AI integration, and game analysis.",
       image:
@@ -102,27 +115,6 @@ export const aboutConfig = {
       link: "https://github.com/BinaryRuns/weiqi.com",
       website: "",
     },
-    {
-      title: "BudgetAI",
-      date: "Feb 2024 - Present",
-      description:
-        "empower individuals to achieve financial wellness through intelligent, personalized guidance. By leveraging AI-driven insights, the app simplifies complex financial decisions, automates budgeting, and proactively identifies opportunities to save, invest, and reduce debt—all while keeping the technology invisible and user-centric.",
-      image: "BudgetAi.png",
-      video: "/Budget.mp4",
-      technologies: [
-        "Python",
-        "Fast API",
-        "Next.js",
-        "Typescript",
-        "Figma",
-        "PostgreSQL",
-        "Docker",
-        "Redis",
-        "WebSocket",
-        "Plaid API",
-      ],
-      link: "https://github.com/BinaryRuns/BudgetPilot",
-      website: "",
-    },
+
   ],
 };

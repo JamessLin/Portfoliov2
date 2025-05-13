@@ -168,7 +168,7 @@ export default function Home() {
                       </p>
                     </div>
                     <span className="text-sm text-muted-foreground">
-                      {school.date}
+              
                     </span>
                   </div>
                 </div>
