@@ -26,7 +26,7 @@ export default function Home() {
               startContent={<FaLocationDot />}
               variant="flat"
             >
-              Schenectady, New York
+              San Francisco Bay Area
             </Chip>
 
             <h1 className="text-4xl md:text-6xl font-bold mb-4">
